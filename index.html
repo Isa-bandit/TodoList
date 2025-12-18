@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glass To-Do List</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Supabase SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="icon" href="image.png" type="image/png">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Экран Авторизации -->
+    <div id="auth-container" class="glass-container auth-view">
+        <div class="auth-icon">
+            <i class="fa-solid fa-list-check"></i>
+        </div>
+        <h2>Добро пожаловать</h2>
+        <p>Войдите или зарегистрируйтесь, чтобы управлять задачами</p>
+        <form id="auth-form">
+            <div class="input-wrapper">
+                <i class="fa-solid fa-envelope"></i>
+                <input type="email" id="email" placeholder="Email" required>
+            </div>
+            <div class="input-wrapper">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="password" placeholder="Пароль" required>
+            </div>
+            <div class="auth-buttons">
+                <button type="submit" id="login-btn" class="btn primary">
+                    <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                    <span>Войти</span>
+                </button>
+                <button type="button" id="signup-btn" class="btn secondary">
+                    <i class="fa-solid fa-user-plus"></i>
+                    <span>Регистрация</span>
+                </button>
+            </div>
+        </form>
+        <p id="auth-message" class="message"></p>
+    </div>
+
+    <!-- Основное Приложение (скрыто по умолчанию) -->
+    <div id="app-container" class="glass-container app-view hidden">
+        <header>
+            <div class="header-left">
+                <div class="header-icon">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                </div>
+                <div class="header-text">
+                    <h1>Мои Задачи</h1>
+                    <span class="header-subtitle">Организуй свой день</span>
+                </div>
+            </div>
+            <button id="logout-btn" class="btn-icon" title="Выйти">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </button>
+        </header>
+
+        <!-- Панель управления -->
+        <div class="controls">
+            <button id="add-new-btn" class="btn-large">
+                <i class="fa-solid fa-plus"></i>
+                <span>Добавить задачу</span>
+            </button>
+            
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Все</span>
+                </button>
+                <button class="filter-btn" data-filter="active">
+                    <i class="fa-solid fa-clock"></i>
+                    <span>Активные</span>
+                </button>
+                <button class="filter-btn" data-filter="completed">
+                    <i class="fa-solid fa-check-circle"></i>
+                    <span>Готовые</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Список задач (Шапка таблицы) -->
+        <div class="list-header">
+            <span><i class="fa-solid fa-tasks"></i> Задача</span>
+            <span><i class="fa-solid fa-info-circle"></i> Статус</span>
+            <span><i class="fa-solid fa-cog"></i> Действия</span>
+        </div>
+
+        <!-- Контейнер задач -->
+        <div id="todo-list" class="todo-list">
+            <!-- Задачи будут здесь -->
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <span>Загрузка...</span>
+            </div>
+        </div>
+
+        <!-- Футер списка -->
+        <div class="list-footer">
+            <span id="items-left">
+                <i class="fa-solid fa-chart-simple"></i>
+                0 задач осталось
+            </span>
+            <button id="clear-completed" class="text-btn">
+                <i class="fa-solid fa-broom"></i>
+                Очистить выполненные
+            </button>
+        </div>
+    </div>
+
+    <!-- Модальное окно (Добавление/Редактирование) -->
+    <div id="modal" class="modal hidden">
+        <div class="glass-container modal-content">
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </div>
+                <h2 id="modal-title">Новая задача</h2>
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    <i class="fa-solid fa-heading"></i>
+                    Название задачи:
+                </label>
+                <div class="input-wrapper">
+                    <input type="text" id="task-input" placeholder="Например: Купить продукты">
+                </div>
+            </div>
+
+            <div class="modal-buttons">
+                <button id="cancel-task-btn" class="btn secondary">
+                    <i class="fa-solid fa-xmark"></i>
+                    <span>Отмена</span>
+                </button>
+                <button id="save-task-btn" class="btn primary">
+                    <i class="fa-solid fa-check"></i>
+                    <span>Сохранить</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
