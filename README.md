@@ -44,8 +44,8 @@ user_id (uuid, foreign key → auth.users.id)
 ## 🔌 API Настройки
 
 ```javascript
-const SUPABASE_URL = 'https://xuuyurmxkkfzwebrsfeq.supabase.co'
-const SUPABASE_KEY = 'sb_publishable_W3Xe_Qgcv-LD84TjaJ7QaA_1EkFrOwA'
+    const SUPABASE_URL = 'https://xcqpvmhtwxqkyzrmljcr.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_gTeYSlWlBsNBJgcKyFaSqQ_r6G0c_uF';
 ```
 
 ## 🚀 Установка и запуск
